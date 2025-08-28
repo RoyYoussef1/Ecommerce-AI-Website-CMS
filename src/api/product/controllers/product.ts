@@ -49,7 +49,7 @@ export default factories.createCoreController(
       // Product with variants populated
       const product = await strapi.db.query("api::product.product").findOne({
         where: { id },
-        populate: { variants: true, mainImage:true }, // adjust if different relation name
+        populate: { variants: true, mainImage: true }, // adjust if different relation name
       });
 
       // if (!product) return ctx.notFound("Product not found");
@@ -65,15 +65,20 @@ export default factories.createCoreController(
 
     // GET all products
     async find(ctx) {
+      const { filters } = ctx.query;
+
       const entities = await strapi.db.query("api::product.product").findMany({
         where: {
-          publishedAt: {
-            $notNull: true, // ✅ only get published products
-          },
+          publishedAt: { $notNull: true },
+          ...(typeof filters === "object" && filters !== null ? filters : {}), // safely merge filters
         },
-        populate: { variants: true, mainImage:true },
+        populate: {
+          variants: true,
+          mainImage: true, // replace with your actual image field name
+        },
       });
-      return entities; // includes embeddings for verification
+
+      return entities;
     },
   })
 );
