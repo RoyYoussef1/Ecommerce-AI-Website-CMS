@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_variant_variants",
+  "info": {
+    "displayName": "Variant",
+    "icon": "grid"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "value": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "config": {}
+}
