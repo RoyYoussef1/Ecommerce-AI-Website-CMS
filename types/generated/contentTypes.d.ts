@@ -439,7 +439,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Blocks & Schema.Attribute.Required;
-    embedding: Schema.Attribute.JSON & Schema.Attribute.Private;
+    embedding: Schema.Attribute.JSON;
     galleryImages: Schema.Attribute.Media<
       'images' | 'files' | 'videos' | 'audios',
       true
@@ -450,12 +450,11 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'api::product.product'
     > &
       Schema.Attribute.Private;
-    mainImage: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    > &
+    mainImage: Schema.Attribute.Media<'files' | 'images'> &
       Schema.Attribute.Required;
     price: Schema.Attribute.Decimal & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    secondImage: Schema.Attribute.Media<'images' | 'files'>;
     short_desc: Schema.Attribute.Text &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{

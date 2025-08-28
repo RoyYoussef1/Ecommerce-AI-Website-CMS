@@ -49,7 +49,7 @@ export default factories.createCoreController(
       // Product with variants populated
       const product = await strapi.db.query("api::product.product").findOne({
         where: { id },
-        // populate: { variants: true }, // adjust if different relation name
+        populate: { variants: true, mainImage:true }, // adjust if different relation name
       });
 
       // if (!product) return ctx.notFound("Product not found");
@@ -71,6 +71,7 @@ export default factories.createCoreController(
             $notNull: true, // ✅ only get published products
           },
         },
+        populate: { variants: true, mainImage:true },
       });
       return entities; // includes embeddings for verification
     },

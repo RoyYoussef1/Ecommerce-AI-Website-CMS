@@ -49,10 +49,8 @@
       "multiple": false,
       "required": true,
       "allowedTypes": [
-        "images",
         "files",
-        "videos",
-        "audios"
+        "images"
       ]
     },
     "available": {
@@ -91,8 +89,15 @@
       "targetField": "title"
     },
     "embedding": {
-      "type": "json",
-      "private": true
+      "type": "json"
+    },
+    "secondImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
     }
   }
 }
