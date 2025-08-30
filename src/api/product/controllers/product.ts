@@ -1,8 +1,3 @@
-/**
- * product controller
- */
-console.log("🔥 Custom product controller is loaded");
-
 import { factories } from "@strapi/strapi";
 
 export default factories.createCoreController(
@@ -42,41 +37,41 @@ export default factories.createCoreController(
       return response;
     },
 
-    // GET single product
     async findOne(ctx) {
       const { id } = ctx.params;
 
-      // Product with variants populated
       const product = await strapi.db.query("api::product.product").findOne({
         where: { id },
-        populate: { variants: true, mainImage: true, galleryImages:true }, // adjust if different relation name
+        populate: { variants: true, mainImage: true, galleryImages: true },
       });
-
-      // if (!product) return ctx.notFound("Product not found");
-
-      // // Related files
-      // const relatedFiles = await strapi.db.query("api::files.files").findMany({
-      //   where: { documentId: product.documentId },
-      //   orderBy: { createdAt: "desc" },
-      // });
 
       return { ...product };
     },
 
-    // GET all products
     async find(ctx) {
       const { filters } = ctx.query;
+      const pagination = ctx.query?.pagination;
 
       const entities = await strapi.db.query("api::product.product").findMany({
         where: {
           publishedAt: { $notNull: true },
-          ...(typeof filters === "object" && filters !== null ? filters : {}), // safely merge filters
+          ...(typeof filters === "object" && filters !== null ? filters : {}),
         },
         populate: {
           variants: true,
           mainImage: true,
           galleryImages: true,
         },
+        ...(pagination &&
+        typeof pagination === "object" &&
+        "pageSize" in pagination &&
+        "page" in pagination
+          ? {
+              limit: (pagination as any).pageSize,
+              offset:
+                ((pagination as any).page - 1) * (pagination as any).pageSize,
+            }
+          : {}),
       });
 
       return entities;
@@ -84,7 +79,6 @@ export default factories.createCoreController(
   })
 );
 
-// ✅ Type-safe helper function to call the embedding API
 type EmbeddingResponse = {
   embedding: number[];
 };
