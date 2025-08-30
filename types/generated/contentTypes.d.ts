@@ -454,11 +454,10 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required;
     price: Schema.Attribute.Decimal & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
-    secondImage: Schema.Attribute.Media<'images' | 'files'>;
     short_desc: Schema.Attribute.Text &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 250;
+        maxLength: 350;
       }>;
     slug: Schema.Attribute.UID<'title'>;
     store: Schema.Attribute.Relation<'manyToOne', 'api::store.store'>;

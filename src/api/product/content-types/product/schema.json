@@ -21,7 +21,7 @@
     },
     "short_desc": {
       "type": "text",
-      "maxLength": 250,
+      "maxLength": 350,
       "required": true
     },
     "price": {
@@ -90,14 +90,6 @@
     },
     "embedding": {
       "type": "json"
-    },
-    "secondImage": {
-      "type": "media",
-      "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files"
-      ]
     }
   }
 }
