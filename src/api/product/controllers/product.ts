@@ -7,7 +7,7 @@ export default factories.createCoreController(
       const { data } = ctx.request.body;
 
       try {
-        const textToEmbed = data.title + " " + data.short_desc || "";
+        const textToEmbed = data.title + " " + data.short_desc || "" ;
         const embedding = await embedText(textToEmbed);
         console.log("📦 Generated embedding:", embedding);
         data.embedding = embedding;

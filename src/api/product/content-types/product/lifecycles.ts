@@ -1,4 +1,3 @@
-// cms/src/api/product/content-types/product/lifecycles.ts
 import fetch from 'node-fetch';
 
 type EmbedResponse = {
@@ -6,8 +5,6 @@ type EmbedResponse = {
   embeddings: number[][];
 };
 
-// —––––––––––––––––––––––––––––––––––––––––––––––––
-// Flatten the rich‐text `description` field to plain text
 function extractText(description: any): string {
   if (!Array.isArray(description)) return '';
   return description
@@ -20,8 +17,6 @@ function extractText(description: any): string {
     .join(' ');
 }
 
-// —––––––––––––––––––––––––––––––––––––––––––––––––
-// Call your embed API and return the first vector
 async function embedText(text: string): Promise<number[]> {
   const res = await fetch('http://localhost:11434/api/embed', {
     method: 'POST',
@@ -48,9 +43,7 @@ async function embedText(text: string): Promise<number[]> {
   return json.embeddings[0];
 }
 
-// —––––––––––––––––––––––––––––––––––––––––––––––––
 export default {
-  // Runs on create (Admin UI or via /api/products)
   async beforeCreate(event: any) {
     const data = event.params.data;
     const title = data.title ?? '';
@@ -65,7 +58,6 @@ export default {
     }
   },
 
-  // Runs on update
   async beforeUpdate(event: any) {
     const data = event.params.data;
     if (data.title || data.description) {
